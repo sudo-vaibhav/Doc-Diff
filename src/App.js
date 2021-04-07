@@ -105,7 +105,7 @@ function App() {
           </Col>
           <Col>
             <DiffEditor            
-              height="90vh"
+              height="80vh"
               defaultLanguage="javascript"
               original={name}
               modified={code}

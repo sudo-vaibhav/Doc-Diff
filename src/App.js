@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -20,9 +20,19 @@ function App() {
   const diffEditorRef = useRef(null);
   const [expanded, setExpanded] = React.useState([]);
   var [name, setName] = useState("Choose a file");
+  var [code,setCode] = useState("Paste Code Here");
+
+  useEffect(() => {
+    setCode("Paste Code here");
+  }, [code]);
 
   function handleEditorMount(editor) {
     diffEditorRef.current = editor;
+  }
+
+  function handleEditorChange(value, event) {
+    console.log("here is the current model value:", value);
+    
   }
 
   function isLetter(str) {
@@ -34,8 +44,11 @@ function App() {
   };
 
   const handleSelect = (event, nodeIds) => {
+    if(nodeIds==="0"){
+      setCode("Resetter");
+    }
     if(!isLetter(nodeIds)){
-    setName(arr[nodeIds]);
+      setName(arr[nodeIds]);
     }
   };
   return (
@@ -43,13 +56,13 @@ function App() {
       <Container fluid style={{backgroundColor: "rgb(22,22,22)", color: "white", paddingBottom: "30px"}}>
         <Row style={{paddingBottom: "20px", paddingTop: "15px"}}>
           <Col sm={4} style={{display: "flex", alignItems: "center"}}>
-            <img src="iste-icon.png" style={{width: "69px"}}></img>
+            <img src="iste-icon.png" alt="" style={{width: "69px"}}></img>
           </Col>
           <Col sm={4} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             <h1 style={{display: "inline"}}>Doc Diff</h1>
           </Col>
           <Col sm={4} style={{display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
-            <img src="horizon-logo.png" style={{width: "65px"}}></img>
+            <img src="horizon-logo.png" alt="" style={{width: "65px"}}></img>
           </Col>
         </Row>
         <Row>
@@ -95,8 +108,9 @@ function App() {
               height="90vh"
               defaultLanguage="javascript"
               original={name}
-              modified="Paste code here"
+              modified={code}
               onMount={handleEditorMount}
+              onChange={handleEditorChange}
               theme="vs-dark"
             />
           </Col>

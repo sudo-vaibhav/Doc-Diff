@@ -1,6 +1,4 @@
 import React, { useRef, useState } from "react";
-// import 'carbon-components/css/carbon-components.min.css';
-// import { Accordion, AccordionItem } from 'carbon-components-react';
 import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -8,8 +6,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
 import { DiffEditor } from "@monaco-editor/react";
 import arr from "./array.js";
-import { Container, Row, Col} from 'react-bootstrap'
-console.log(arr);
+import { Container, Row, Col} from 'react-bootstrap';
 const useStyles = makeStyles({
   root: {
     height: 216,
@@ -28,8 +25,8 @@ function App() {
     diffEditorRef.current = editor;
   }
 
-  function isNumber(str) {
-    return str.length === 1 && str.match(/[0-9]/i);
+  function isLetter(str) {
+    return str.length === 1 && str.match(/[a-z]/i);
   }
 
   const handleToggle = (event, nodeIds) => {
@@ -37,7 +34,7 @@ function App() {
   };
 
   const handleSelect = (event, nodeIds) => {
-    if(isNumber(nodeIds)){
+    if(!isLetter(nodeIds)){
     setName(arr[nodeIds]);
     }
   };
@@ -54,6 +51,7 @@ function App() {
           onNodeToggle={handleToggle}
           onNodeSelect={handleSelect}
         >
+          <TreeItem nodeId="0" label="Reset"/>
           <TreeItem nodeId="a" label="Frontend">
             <TreeItem nodeId="b" label="Components">
                 <TreeItem nodeId="1" label="HOC.jsx" />
@@ -65,14 +63,17 @@ function App() {
                 <TreeItem nodeId="5" label="Search.jsx"/>  
             </TreeItem>
             <TreeItem nodeId="6" label="App.jsx"/>  
+            <TreeItem nodeId="7" label="App.scss"/>
+            <TreeItem nodeId="8" label="colors.scss"/>
           </TreeItem>
           <TreeItem nodeId="d" label="Backend">
-            <TreeItem nodeId="e" label="Material-UI">
-              <TreeItem nodeId="f" label="src">
-                <TreeItem nodeId="3" label="index.js" />
-                <TreeItem nodeId="4" label="tree-view.js" />
-              </TreeItem>
+            <TreeItem nodeId="e" label="models">
+              <TreeItem nodeId="9" label="song.js"/>
             </TreeItem>
+            <TreeItem nodeId="f" label="routes">
+              <TreeItem nodeId="10" label="api.js"/>
+            </TreeItem>
+            <TreeItem nodeId="11" label="index.js"/>
           </TreeItem>
         </TreeView>
           

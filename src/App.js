@@ -43,9 +43,21 @@ function App() {
   };
   return (
     <>
-      <Container fluid>
+      <Container fluid style={{backgroundColor: "rgb(22,22,22)", color: "white", paddingBottom: "30px"}}>
+        <Row style={{paddingBottom: "20px", paddingTop: "15px"}}>
+          <Col sm={4} style={{display: "flex", alignItems: "center"}}>
+            <img src="iste-icon.png" style={{width: "69px"}}></img>
+          </Col>
+          <Col sm={4} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <h1 style={{display: "inline"}}>Doc Diff</h1>
+          </Col>
+          <Col sm={4} style={{display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
+            <img src="horizon-logo.png" style={{width: "65px"}}></img>
+          </Col>
+        </Row>
         <Row>
-          <Col sm={2} className="pt-5">
+          <Col sm={2} className="pt-3">
+            <h5 style={{fontFamily: "Source Sans Pro"}}>File Explorer</h5>
               <TreeView
           className={classes.root}
           defaultCollapseIcon={<ExpandMoreIcon />}
@@ -78,13 +90,13 @@ function App() {
           
           </Col>
           <Col>
-          <br/>
             <DiffEditor            
               height="90vh"
               defaultLanguage="javascript"
               original={name}
               modified="Paste code here"
               onMount={handleEditorMount}
+              theme="vs-dark"
             />
           </Col>
         </Row>

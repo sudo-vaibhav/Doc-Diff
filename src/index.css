@@ -16,3 +16,51 @@ code {
 .MuiTypography-body1 {
   font-family: 'Source Sans Pro' !important;
 }
+
+h1 {
+  display: inline;
+  /* color: white; */
+}
+
+h1:hover {
+  cursor: pointer;
+  /* color: blue !important; */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  height: 70vh;
+  padding: 0;
+
+}
+
+#dbname {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 2px solid white;
+  color: white;
+  text-align: center;
+  font-family: sans-serif;
+  width: 16%;
+}
+
+h4 {
+  color: white;
+  text-align: center;
+  line-height: 1.5;
+}
+
+h4 a {
+  text-decoration: none;
+}
+
+.btn-light:hover {
+  background-color: #2a2b2a;
+  color: white;
+  border-color: #2a2b2a;
+}

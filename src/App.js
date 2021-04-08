@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -24,6 +23,7 @@ function App() {
   var [uri, setUri] = useState("");
   var [name, setName] = useState("Choose a file");
   var [code,setCode] = useState("Paste Code Here");
+  var [layout, setLayout] = useState(true);
 
   useEffect(() => {
     setCode("Paste Code here");
@@ -36,7 +36,15 @@ function App() {
   function generator(){
     name = document.getElementById("dbname");
     var rand = Math.floor((Math.random() * 2));
-    setUri(dbArr[rand].replace("MyFirstDatabase", name.value));
+    setUri("Your DB URI: " + dbArr[rand].replace("MyFirstDatabase", name.value));
+  }
+
+  function changeLayout1() {
+    setLayout(false);
+  }
+
+  function changeLayout2() {
+    setLayout(true);
   }
 
   function isLetter(str) {
@@ -58,22 +66,22 @@ function App() {
 
   return (
     <>
-    <Router>
-    <Switch>
-    <Route path="/" exact>
       <Container fluid style={{backgroundColor: "rgb(22,22,22)", color: "white", paddingBottom: "30px"}}>
         <Row style={{paddingBottom: "20px", paddingTop: "15px"}}>
           <Col sm={4} style={{display: "flex", alignItems: "center"}}>
             <img src="iste-icon.png" alt="" style={{width: "69px"}}></img>
           </Col>
           <Col sm={4} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <h1 style={{display: "inline"}}>Doc Diff</h1>
+            <h1 onClick={changeLayout2} style={layout ? {color: "white"} : {color: "#524f4f"}}>Doc Diff</h1>
+            <h1>/</h1>
+            <h1 onClick={changeLayout1} style={layout ? {color: "#524f4f"} : {color: "white"}}>Randomizer</h1>
           </Col>
           <Col sm={4} style={{display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
             <img src="horizon-logo.png" alt="" style={{width: "65px"}}></img>
           </Col>
         </Row>
-        <Row>
+      {layout ? 
+        <Row id="maincontainer">
           <Col sm={2} className="pt-3">
             <h5 style={{fontFamily: "Source Sans Pro"}}>File Explorer</h5>
               <TreeView
@@ -122,15 +130,15 @@ function App() {
             />
             </Col>
           </Row>
-        </Container>
-      </Route>
-      <Route path="/keys">
-          <input type="text" id="dbname"/>
-          <button onClick={generator}>Submit</button>
-          <h1>{uri}</h1>
-      </Route>
-    </Switch>
-  </Router>
+      :
+      <div class="container">
+            <h4 class="mb-5">VITians put your registration number<br></br>Non-VITians put your college ID <br></br>Feel free to contact us on our <a href="https://discord.gg/zbmMUJfxRU">discord server</a></h4>
+            <input type="text" id="dbname" class="mt-5"/>
+            <button type="button" class="btn btn-light mt-3 mb-5" onClick={generator}>Submit</button>
+            <h1>{uri}</h1>
+          </div>
+      }
+            </Container>
     </>
   );
 }

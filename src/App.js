@@ -4,7 +4,8 @@ import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
-import { DiffEditor } from "@monaco-editor/react";
+import { DiffEditor,useMonaco } from "@monaco-editor/react";
+import {monaco} from "monaco-editor"
 import arr from "./array.js";
 import { Container, Row, Col} from 'react-bootstrap';
 const useStyles = makeStyles({
@@ -16,6 +17,7 @@ const useStyles = makeStyles({
 });
 
 function App() {
+  const monaco = useMonaco();
   const classes = useStyles();
   const diffEditorRef = useRef(null);
   const [expanded, setExpanded] = React.useState([]);
@@ -26,13 +28,11 @@ function App() {
     setCode("Paste Code here");
   }, [code]);
 
-  function handleEditorMount(editor) {
-    diffEditorRef.current = editor;
+  function handleEditorMount(monaco) {
+    diffEditorRef.current = monaco;
   }
-
-  function handleEditorChange(value, event) {
-    console.log("here is the current model value:", value);
-    
+  function handleEditorWillMount(monaco) {
+    monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
   }
 
   function isLetter(str) {
@@ -51,6 +51,7 @@ function App() {
       setName(arr[nodeIds]);
     }
   };
+
   return (
     <>
       <Container fluid style={{backgroundColor: "rgb(22,22,22)", color: "white", paddingBottom: "30px"}}>
@@ -110,8 +111,16 @@ function App() {
               original={name}
               modified={code}
               onMount={handleEditorMount}
-              onChange={handleEditorChange}
-              theme="vs-dark"
+              theme='vs-dark'
+              // theme='vs-dark'{{ 
+              //   base: 'vs-dark', // can also be vs-dark or hc-black
+              //   inherit: true, // can also be false to completely replace the builtin rules
+              //   rules: [
+              //     { token: 'comment', foreground: 'ffa500', fontStyle: 'italic underline' },
+              //     { token: 'comment.js', foreground: '008800', fontStyle: 'bold' },
+              //     { token: 'comment.css', foreground: '0000ff' } // will inherit fontStyle from `comment` above
+              //   ]
+              // }}
             />
           </Col>
         </Row>

@@ -13,57 +13,57 @@ let arr = ["Choose a File"]
 fetch(hoc)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[1]= text
   });
 fetch(home)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[2]= text
   });
 fetch(musicplayerjsx)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[3]= text
   });
 fetch(musicplayerscss)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[4]= text
   });
 fetch(search)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[5]= text
   });
 fetch(app)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[6]= text
   });
 fetch(appscss)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[7]= text
   });
 fetch(colors)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[8]= text
   });
 fetch(song)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[9]= text
   });
 fetch(api)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[10]= text
   });
 fetch(indexbe)
   .then(r => r.text())
   .then(text => {
-    arr.push(text)
+    arr[11]= text
   });
 
 export default arr;

@@ -69,15 +69,15 @@ function App() {
       <Container fluid style={{backgroundColor: "rgb(22,22,22)", color: "white", paddingBottom: "30px"}}>
         <Row style={{paddingBottom: "20px", paddingTop: "15px"}}>
           <Col sm={4} style={{display: "flex", alignItems: "center"}}>
-            <img src="iste-icon.png" alt="" style={{width: "69px"}}></img>
+            <a href="https://istevit.in"><img src="iste-icon.png" alt="" style={{width: "69px"}}></img></a>
           </Col>
           <Col sm={4} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             <h1 onClick={changeLayout2} style={layout ? {color: "white"} : {color: "#524f4f"}}>Doc Diff</h1>
-            <h1>/</h1>
+            <h1> / </h1>
             <h1 onClick={changeLayout1} style={layout ? {color: "#524f4f"} : {color: "white"}}>Randomizer</h1>
           </Col>
           <Col sm={4} style={{display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
-            <img src="horizon-logo.png" alt="" style={{width: "65px"}}></img>
+            <a href="https://horizon.istevit.in"><img src="horizon-logo.png" alt="" style={{width: "65px"}}></img></a>
           </Col>
         </Row>
       {layout ? 

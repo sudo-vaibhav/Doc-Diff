@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
-import { DiffEditor,useMonaco } from "@monaco-editor/react";
-import {monaco} from "monaco-editor"
+import { DiffEditor } from "@monaco-editor/react";
 import arr from "./array.js";
 import { Container, Row, Col} from 'react-bootstrap';
 const useStyles = makeStyles({
@@ -17,10 +17,11 @@ const useStyles = makeStyles({
 });
 
 function App() {
-  const monaco = useMonaco();
+  const dbArr = ["TestArrMyFirstDatabaseblabla","akjgbaljgnkalgnMyFirstDatabase"];
   const classes = useStyles();
   const diffEditorRef = useRef(null);
   const [expanded, setExpanded] = React.useState([]);
+  var [uri, setUri] = useState("");
   var [name, setName] = useState("Choose a file");
   var [code,setCode] = useState("Paste Code Here");
 
@@ -28,11 +29,14 @@ function App() {
     setCode("Paste Code here");
   }, [code]);
 
-  function handleEditorMount(monaco) {
-    diffEditorRef.current = monaco;
+  function handleEditorMount(editor) {
+    diffEditorRef.current = editor;
   }
-  function handleEditorWillMount(monaco) {
-    monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
+
+  function generator(){
+    name = document.getElementById("dbname");
+    var rand = Math.floor((Math.random() * 2));
+    setUri(dbArr[rand].replace("MyFirstDatabase", name.value));
   }
 
   function isLetter(str) {
@@ -54,6 +58,9 @@ function App() {
 
   return (
     <>
+    <Router>
+    <Switch>
+    <Route path="/" exact>
       <Container fluid style={{backgroundColor: "rgb(22,22,22)", color: "white", paddingBottom: "30px"}}>
         <Row style={{paddingBottom: "20px", paddingTop: "15px"}}>
           <Col sm={4} style={{display: "flex", alignItems: "center"}}>
@@ -112,19 +119,18 @@ function App() {
               modified={code}
               onMount={handleEditorMount}
               theme='vs-dark'
-              // theme='vs-dark'{{ 
-              //   base: 'vs-dark', // can also be vs-dark or hc-black
-              //   inherit: true, // can also be false to completely replace the builtin rules
-              //   rules: [
-              //     { token: 'comment', foreground: 'ffa500', fontStyle: 'italic underline' },
-              //     { token: 'comment.js', foreground: '008800', fontStyle: 'bold' },
-              //     { token: 'comment.css', foreground: '0000ff' } // will inherit fontStyle from `comment` above
-              //   ]
-              // }}
             />
-          </Col>
-        </Row>
-      </Container>
+            </Col>
+          </Row>
+        </Container>
+      </Route>
+      <Route path="/keys">
+          <input type="text" id="dbname"/>
+          <button onClick={generator}>Submit</button>
+          <h1>{uri}</h1>
+      </Route>
+    </Switch>
+  </Router>
     </>
   );
 }
